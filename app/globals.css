@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   BankFin Light — CRED-inspired light system
+   Display: Fraunces (Cirka-like serif)  ·  UI: Outfit (Gilroy-like)
+   Red sampled from the official logo: #ED1C24 / #BB141A.
+   ────────────────────────────────────────────────────────────── */
+@theme {
+  --color-bg: #f5f3ef;
+  --color-bg-2: #ece8e1;
+  --color-white: #ffffff;
+  --color-ink: #111014;
+  --color-ink-soft: #3b393f;
+  --color-muted: #6e6c72;
+  --color-faint: #a9a5a0;
+  --color-line: #e4dfd8;
+  --color-red: #ed1c24;
+  --color-red-strong: #d7141c;
+  --color-red-deep: #bb141a;
+  --color-red-soft: #fde9e8;
+
+  /* aliases kept for older utilities */
+  --color-paper: #f5f3ef;
+  --color-paper-deep: #ece8e1;
+  --color-rule: #e4dfd8;
+  --color-card: #ffffff;
+
+  --font-sans: var(--font-outfit), "Gilroy", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), "Cirka", ui-serif, Georgia, serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --shadow-card: 0 1px 2px rgb(17 16 20 / 0.04), 0 18px 40px -22px rgb(17 16 20 / 0.25);
+  --shadow-float: 0 2px 6px rgb(17 16 20 / 0.05), 0 30px 60px -28px rgb(17 16 20 / 0.35);
+  --shadow-red: 0 18px 40px -16px rgb(215 20 28 / 0.55);
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-red);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-red-strong);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* CRED-style tracked kicker */
+  .kicker {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+  }
+  .kicker-red {
+    color: var(--color-red-strong);
+  }
+
+  /* Display serif — tight, bold, lowercase */
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-size: clamp(3rem, 8.4vw, 7.6rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+  }
+  .title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-size: clamp(2.3rem, 5vw, 4.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+  .title-sm {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-variation-settings: "opsz" 72, "SOFT" 30;
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  .sub {
+    font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+    line-height: 1.55;
+    color: var(--color-muted);
+  }
+
+  /* Huge ghost word behind a section */
+  .ghost {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(5rem, 19vw, 17rem);
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(17 16 20 / 0.08);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .card {
+    background: var(--color-white);
+    border-radius: 28px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: var(--color-white);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgb(17 16 20 / 0.05), 0 8px 18px -12px rgb(17 16 20 / 0.3);
+  }
+
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+  .line-inner {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  .link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 2px;
+    transition: background-size 0.5s var(--ease-out-expo);
+  }
+  .link:hover {
+    background-size: 0% 1px;
+    background-position: 100% 100%;
+  }
+
+  .field {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--color-line);
+    background: var(--color-white);
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    color: var(--color-ink);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .field::placeholder {
+    color: var(--color-faint);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 4px rgb(17 16 20 / 0.06);
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--color-red-deep);
+    box-shadow: 0 0 0 4px rgb(237 28 36 / 0.1);
+  }
+
+  /* legacy class names still used by a few inner components */
+  .label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .label-num {
+    color: var(--color-red-strong);
+  }
+  .numeral {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  .lede {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+  }
+  .body {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--color-muted);
+  }
+  .h2 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+/* Motion initial states — only when JS motion is active */
+html.motion [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+}
+html.motion [data-hero],
+html.motion [data-nav] {
+  opacity: 0;
+}
+html.motion [data-split] .line-inner {
+  transform: translate3d(0, 110%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
